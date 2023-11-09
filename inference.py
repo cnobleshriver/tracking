@@ -61,7 +61,9 @@ def constructBayesNet(gameState: hunters.GameState):
     variableDomainsDict = {}
 
     "*** YOUR CODE HERE ***"
-    raiseNotDefined()
+    bayesNet = bn.constructEmptyBayesNet(variables, edges, variableDomainsDict)
+    return bayesNet
+    # raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
     net = bn.constructEmptyBayesNet(variables, edges, variableDomainsDict)
