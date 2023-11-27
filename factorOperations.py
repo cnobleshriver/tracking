@@ -102,14 +102,17 @@ def joinFactors(factors: List[Factor]):
 
 
     "*** YOUR CODE HERE ***"
+    unconditionedVariables = set()
+    conditionedVariables = set()
+    dict = list(factors)[0].variableDomainsDict()
     for factor in factors:
-        dict = factor.variableDomainsDict()
-        for assignment in factor.getAllPossibleAssignmentDicts():
-            prob = factor.getProbability(assignment)
-            if assignment not in dict:
-                dict[assignment] = prob
-            else:
-                dict[assignment] *= prob
+        print(factor)
+
+        unconditionedVariables = unconditionedVariables.union(factor.unconditionedVariables())
+        conditionedVariables = conditionedVariables.union(factor.conditionedVariables())
+        unconditionedVariables = unconditionedVariables.difference(conditionedVariables)
+
+    return Factor(unconditionedVariables, conditionedVariables, dict)
     "*** END YOUR CODE HERE ***"
 
 ########### ########### ###########
