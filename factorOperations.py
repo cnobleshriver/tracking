@@ -102,15 +102,14 @@ def joinFactors(factors: List[Factor]):
 
 
     "*** YOUR CODE HERE ***"
-    dict = {}
     for factor in factors:
+        dict = factor.variableDomainsDict()
         for assignment in factor.getAllPossibleAssignmentDicts():
             prob = factor.getProbability(assignment)
             if assignment not in dict:
                 dict[assignment] = prob
             else:
                 dict[assignment] *= prob
-    raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 ########### ########### ###########
