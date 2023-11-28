@@ -100,19 +100,23 @@ def joinFactors(factors: List[Factor]):
                     "Input factors: \n" +
                     "\n".join(map(str, factors)))
 
-
     "*** YOUR CODE HERE ***"
     unconditionedVariables = set()
     conditionedVariables = set()
-    dict = list(factors)[0].variableDomainsDict()
-    for factor in factors:
-        print(factor)
+    domain = list(factors)[0].variableDomainsDict()
 
+    for factor in factors:
         unconditionedVariables = unconditionedVariables.union(factor.unconditionedVariables())
         conditionedVariables = conditionedVariables.union(factor.conditionedVariables())
-        unconditionedVariables = unconditionedVariables.difference(conditionedVariables)
-
-    return Factor(unconditionedVariables, conditionedVariables, dict)
+    conditionedVariables -= unconditionedVariables
+    newFactor = Factor(unconditionedVariables, conditionedVariables, domain)
+    
+    for assignment in newFactor.getAllPossibleAssignmentDicts():
+        prob = 1
+        for factor in factors:
+            prob *= factor.getProbability(assignment)
+        newFactor.setProbability(assignment, prob)
+    return newFactor
     "*** END YOUR CODE HERE ***"
 
 ########### ########### ###########
