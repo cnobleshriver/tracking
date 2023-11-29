@@ -337,7 +337,10 @@ class DiscreteDistribution(dict):
         {}
         """
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        total = self.total()
+        if total != 0:
+            for key in self.keys():
+                self[key] /= total
         "*** END YOUR CODE HERE ***"
 
     def sample(self):
@@ -362,7 +365,12 @@ class DiscreteDistribution(dict):
         0.0
         """
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        total = self.total()
+        randomNum = random.random() * total
+        for key in self.keys():
+            randomNum -= self[key]
+            if randomNum <= 0:
+                return key
         "*** END YOUR CODE HERE ***"
 
 
