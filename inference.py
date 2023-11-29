@@ -767,7 +767,18 @@ class JointParticleFilter(ParticleFilter):
         the DiscreteDistribution may be useful.
         """
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        beliefs = DiscreteDistribution()
+        for particle in self.particles:
+            prob = 1
+            for i in range(self.numGhosts):
+                prob *= self.getObservationProb(observation[i], gameState.getPacmanPosition(), particle[i], self.getJailPosition(i))
+            beliefs[particle] += prob
+        
+        if beliefs.total() == 0:
+            self.initializeUniformly(gameState)
+            return
+        
+        self.particles = [beliefs.sample() for i in range(self.numParticles)]
         "*** END YOUR CODE HERE ***"
 
     ########### ########### ###########
