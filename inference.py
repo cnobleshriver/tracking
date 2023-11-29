@@ -585,7 +585,6 @@ class ExactInference(InferenceModule):
         current position is known.
         """
         "*** YOUR CODE HERE ***"
-
         newBeliefs = DiscreteDistribution()
         for oldPos in self.allPositions:
             curBelief = self.beliefs[oldPos]
