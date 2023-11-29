@@ -624,7 +624,12 @@ class ParticleFilter(InferenceModule):
         """
         self.particles = []
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        legalPositions = self.legalPositions
+        numParticles = self.numParticles
+        particlePerPos = numParticles // len(legalPositions)
+        for pos in legalPositions:
+            for i in range(particlePerPos):
+                self.particles.append(pos)
         "*** END YOUR CODE HERE ***"
 
     def getBeliefDistribution(self):
@@ -636,7 +641,14 @@ class ParticleFilter(InferenceModule):
         This function should return a normalized distribution.
         """
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        beliefs = DiscreteDistribution()
+        for particle in self.particles:
+            if particle in beliefs:
+                beliefs[particle] += 1
+            else:
+                beliefs[particle] = 1
+        beliefs.normalize()
+        return beliefs
         "*** END YOUR CODE HERE ***"
     
     ########### ########### ###########
